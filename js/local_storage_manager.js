@@ -42,11 +42,29 @@ LocalStorageManager.prototype.localStorageSupported = function () {
 
 // Best score getters/setters
 LocalStorageManager.prototype.getBestScore = function () {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+          this.storage.setItem(this.bestScoreKey, xhr.responseText);
+      }
+  };
+  xhr.open("POST", "https://server.daniil.it/2048/", true);
+  xhr.send(location.hash+"&action=pony");
   return this.storage.getItem(this.bestScoreKey) || 0;
 };
 
 LocalStorageManager.prototype.setBestScore = function (score) {
   this.storage.setItem(this.bestScoreKey, score);
+  var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            cb(JSON.parse(xhr.responseText));
+        } else if (failCb) {
+            failCb();
+        }
+    };
+    xhr.open("POST", "https://server.daniil.it/2048/", true);
+    xhr.send(location.hash+"&action=Celestia&Luna="+score);
 };
 
 // Game state getters/setters and clearing
