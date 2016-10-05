@@ -49,7 +49,7 @@ LocalStorageManager.prototype.getBestScore = function () {
       }
   };
   xhr.open("POST", "https://server.daniil.it/2048/", true);
-  xhr.send(location.hash+"&action=pony");
+  xhr.send("hash="+location.hash+"&action=pony");
   return this.storage.getItem(this.bestScoreKey) || 0;
 };
 
@@ -57,7 +57,7 @@ LocalStorageManager.prototype.setBestScore = function (score) {
   this.storage.setItem(this.bestScoreKey, score);
   var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://server.daniil.it/2048/", true);
-    xhr.send(location.hash+"&action=Celestia&Luna="+score);
+    xhr.send("hash="+location.hash+"&action=Celestia&Luna="+score);
 };
 
 // Game state getters/setters and clearing
