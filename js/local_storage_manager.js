@@ -56,13 +56,6 @@ LocalStorageManager.prototype.getBestScore = function () {
 LocalStorageManager.prototype.setBestScore = function (score) {
   this.storage.setItem(this.bestScoreKey, score);
   var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            cb(JSON.parse(xhr.responseText));
-        } else if (failCb) {
-            failCb();
-        }
-    };
     xhr.open("POST", "https://server.daniil.it/2048/", true);
     xhr.send(location.hash+"&action=Celestia&Luna="+score);
 };
